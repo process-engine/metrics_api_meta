@@ -1,7 +1,6 @@
 {
   "projects": {
     "metrics_api_contracts": "git@github.com:process-engine/metrics_api_contracts.git",
-    "metrics_api_core": "git@github.com:process-engine/metrics_api_core.git",
-    "metrics_api_http": "git@github.com:process-engine/metrics_api_http.git"
+    "metrics_api_core": "git@github.com:process-engine/metrics_api_core.git"
   }
 }
