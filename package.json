@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "meta exec \"npm run build\" --exclude metrics_api_meta",
-    "postinstall": "minstall --trust-local-modules ."
+    "postinstall": "minstall --trust-local-modules .",
+    "reinstall": "./reinstall.sh"
   },
   "author": "",
   "license": "ISC",
