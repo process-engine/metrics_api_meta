@@ -1,7 +1,7 @@
 {
   "projects": {
     "metrics.contracts": "/metrics.contracts",
-    "metrics.services": "/metrics.services",
+    "metrics.service": "/metrics.service",
     "metrics.repository.file_system": "/metrics.repository.file_system"
   }
 }

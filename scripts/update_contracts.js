@@ -97,7 +97,7 @@ async function setContractsVersionInLayerPackages(versionToUse) {
 
   console.log(`Setting @process-engine/metrics_api_contracts to ${versionToUse} for all layer packages`);
 
-  setPersistenceApiContractsBranchVersionForPackage('metrics.repository.sequelize', versionToUse);
+  setPersistenceApiContractsBranchVersionForPackage('metrics.repository.file_system', versionToUse);
   setPersistenceApiContractsBranchVersionForPackage('metrics.service', versionToUse);
 }
 
