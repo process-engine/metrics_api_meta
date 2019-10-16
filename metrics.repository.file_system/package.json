@@ -1,0 +1,45 @@
+{
+  "name": "@process-engine/metrics.repository.file_system",
+  "version": "2.0.0",
+  "description": "Contains the file-system repository for the Metrics API. ",
+  "main": "dist/commonjs/index.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/process-engine/metrics.repository.file_system.git"
+  },
+  "author": "5Minds IT-Solutions GmbH & Co. KG",
+  "maintainers": [
+    "Alexander Kasten <alexander.kasten@5minds.de>",
+    "Christian Werner <christian.werner@5minds.de>",
+    "René Föhring <rene.foehring@5minds.de>",
+    "Steffen Knaup <steffen.knaup@5minds.de>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/process-engine/metrics.repository.file_system/issues"
+  },
+  "homepage": "https://github.com/process-engine/metrics.repository.file_system#readme",
+  "dependencies": {
+    "@essential-projects/errors_ts": "^1.5.0",
+    "@process-engine/metrics_api_contracts": "2.0.0-alpha.3",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@essential-projects/eslint-config": "^1.0.0",
+    "@process-engine/ci_tools": "^2.0.0",
+    "@types/node": "^10.12.2",
+    "eslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && npm run build-commonjs && npm run build-amd",
+    "build-commonjs": "tsc",
+    "build-amd": "tsc --module amd --outDir ./dist/amd",
+    "prepare": "npm run build",
+    "lint": "eslint src/**/*.ts src/*.ts",
+    "lint-fix": "eslint --fix src/**/*.ts src/*.ts",
+    "test": ":"
+  }
+}
