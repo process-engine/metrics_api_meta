@@ -92,7 +92,7 @@ pipeline {
           stages {
             stage('Build Sources') {
               steps {
-                dir('metrics.services') {
+                dir('metrics.service') {
                   sh('node --version')
                   sh('npm run build')
                 }
@@ -100,7 +100,7 @@ pipeline {
             }
             stage('Lint sources') {
               steps {
-                dir('metrics.services') {
+                dir('metrics.service') {
                   sh('node --version')
                   sh('npm run lint')
                 }
@@ -108,7 +108,7 @@ pipeline {
             }
             stage('Execute tests') {
               steps {
-                dir('metrics.services') {
+                dir('metrics.service') {
                   sh('node --version')
                   sh('npm run test')
                 }
@@ -120,7 +120,7 @@ pipeline {
           stages {
             stage('Build Sources') {
               steps {
-                dir('metrics.repositories.sequelize') {
+                dir('metrics.repository.file_system') {
                   sh('node --version')
                   sh('npm run build')
                 }
@@ -128,7 +128,7 @@ pipeline {
             }
             stage('Lint sources') {
               steps {
-                dir('metrics.repositories.sequelize') {
+                dir('metrics.repository.file_system') {
                   sh('node --version')
                   sh('npm run lint')
                 }
@@ -136,7 +136,7 @@ pipeline {
             }
             stage('Execute tests') {
               steps {
-                dir('metrics.repositories.sequelize') {
+                dir('metrics.repository.file_system') {
                   sh('node --version')
                   sh('npm run test')
                 }
@@ -178,7 +178,7 @@ pipeline {
           stages {
             stage('Set package version') {
               steps {
-                dir('metrics.services') {
+                dir('metrics.service') {
                   sh('node --version')
                   sh('node ./node_modules/.bin/ci_tools prepare-version --allow-dirty-workdir');
                 }
@@ -186,7 +186,7 @@ pipeline {
             }
             stage('Publish to npm') {
               steps {
-                dir('metrics.services') {
+                dir('metrics.service') {
                   nodejs(configId: env.NPM_RC_FILE, nodeJSInstallationName: env.NODE_JS_VERSION) {
                     sh('node ./node_modules/.bin/ci_tools publish-npm-package --ignore-scripts --create-tag-from-branch-name')
                   }
@@ -199,7 +199,7 @@ pipeline {
           stages {
             stage('Set package version') {
               steps {
-                dir('metrics.repositories.sequelize') {
+                dir('metrics.repository.file_system') {
                   sh('node --version')
                   sh('node ./node_modules/.bin/ci_tools prepare-version --allow-dirty-workdir');
                 }
@@ -207,7 +207,7 @@ pipeline {
             }
             stage('Publish to npm') {
               steps {
-                dir('metrics.repositories.sequelize') {
+                dir('metrics.repository.file_system') {
                   nodejs(configId: env.NPM_RC_FILE, nodeJSInstallationName: env.NODE_JS_VERSION) {
                     sh('node ./node_modules/.bin/ci_tools publish-npm-package --ignore-scripts --create-tag-from-branch-name')
                   }
