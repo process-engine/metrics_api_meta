@@ -1,18 +1,19 @@
 {
-  "name": "@process-engine/metrics_api_meta",
+  "name": "@process-engine/metrics_api",
   "version": "1.0.0",
-  "description": "Contains the developer setup for the metrics api.",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "meta exec \"npm run build\" --exclude metrics_api_meta",
-    "postinstall": "minstall --trust-local-modules .",
-    "reinstall": "./reinstall.sh"
+    "build": "meta exec \"npm run build\" --exclude metrics_api",
+    "postinstall": "minstall --no-hoist aurelia-* --trust-local-modules .",
+    "reinstall": "./reinstall.sh",
+    "updateContracts": "node scripts/update_contracts.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "meta": "^1.2.18",
-    "meta-npm": "^1.0.3",
-    "minstall": "^3.3.1-pre3"
+    "meta": "^2.2.6",
+    "meta-npm": "^1.2.3",
+    "minstall": "^3.3.0"
   }
 }
