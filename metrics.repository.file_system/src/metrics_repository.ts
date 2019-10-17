@@ -69,7 +69,7 @@ export class MetricsRepository implements IMetricsRepository {
     const stringyfiedToken = JSON.stringify(tokenPayload);
 
     const metricValues = [
-      // Required for versioning. This way, old logs will still be readable, because they only started with "FlowNodeInstance".
+      // Required for versioning. This way, old metrics will still be readable, because they only started with "FlowNodeInstance".
       'FlowNodeInstance_V2',
       timestamp.toISOString(),
       correlationId,
@@ -83,6 +83,24 @@ export class MetricsRepository implements IMetricsRepository {
     ];
 
     await this.writeMetricToFileSystem(processModelId, metricValues);
+  }
+
+  public async archiveProcessModelMetrics(processModelId: string): Promise<void> {
+
+    const fileNameWithExtension = `${processModelId}.met`;
+
+    const targetFilePath = this.buildPath(fileNameWithExtension);
+
+    const processModelHasNoMetrics = !FileSystemAdapter.targetExists(targetFilePath);
+    if (processModelHasNoMetrics) {
+      return;
+    }
+
+    const archiveFolderToUse = this.config.archive_path
+      ? path.resolve(path.normalize(this.config.archive_path))
+      : path.resolve(this.config.output_path, 'archive');
+
+    await FileSystemAdapter.moveMetricFileToArchive(archiveFolderToUse, targetFilePath);
   }
 
   private async writeMetricToFileSystem(processModelId: string, metricValues: Array<string>): Promise<void> {
