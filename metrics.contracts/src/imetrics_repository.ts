@@ -77,4 +77,15 @@ export interface IMetricsRepository {
     timestamp: moment.Moment,
     error?: Error,
   ): Promise<void>;
+
+  /**
+   * Places all metrics for the given ProcessModel into the "archive" folder.
+   * Essentially, this is pretty much like "deleting" the metrics, as they will no longer be available.
+   *
+   * However, since metrics are somewhat sensitive, they will not be deleted, but archived.
+   *
+   * @param identity       The identity of the requesting user.
+   * @param processModelId The ID of the ProcessModel whose metrics are to be archived.
+   */
+  archiveProcessModelMetrics(processModelId: string): Promise<void>;
 }
