@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as moment from 'moment';
 import * as mkdirp from 'mkdirp';
 import * as path from 'path';
 
@@ -74,7 +75,25 @@ export function readAndParseFile(filePath: string): Array<Metric> {
     return isNotEmpty && isNotAComment;
   });
 
-  const metrics = filteredEntries.map(parseMetric);
+  const convertedMetrics = filteredEntries.map(parseMetric);
+  const metrics = convertedMetrics.filter((entry): boolean => entry !== undefined);
 
   return metrics;
+}
+
+export async function moveMetricFileToArchive(archiveFolderPath, fileToMove): Promise<void> {
+
+  const timeTagForArchivedFile = moment()
+    .toISOString()
+    .replace(/:/g, '_')
+    .replace(/\./g, '_');
+
+  const sourceFileInfo = path.parse(fileToMove);
+
+  const archivedFileName = `${sourceFileInfo.name}-${timeTagForArchivedFile}${sourceFileInfo.ext}`;
+  const archivedFilePath = path.resolve(archiveFolderPath, archivedFileName);
+
+  await ensureDirectoryExists(archivedFilePath);
+
+  fs.renameSync(fileToMove, archivedFilePath);
 }

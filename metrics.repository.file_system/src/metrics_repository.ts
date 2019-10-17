@@ -2,7 +2,10 @@ import * as moment from 'moment';
 import * as path from 'path';
 
 import {
-  IMetricsRepository, Metric, MetricMeasurementPoint,
+  IMetricsRepository,
+  IMetricsRepositoryConfig,
+  Metric,
+  MetricMeasurementPoint,
 } from '@process-engine/metrics_api_contracts';
 
 import * as ErrorSerializer from './adapter/error_serializer';
@@ -10,7 +13,7 @@ import * as FileSystemAdapter from './adapter/file_system_adapter';
 
 export class MetricsRepository implements IMetricsRepository {
 
-  public config: any;
+  public config: IMetricsRepositoryConfig;
 
   public async readMetricsForProcessModel(processModelId: string): Promise<Array<Metric>> {
 
@@ -69,7 +72,7 @@ export class MetricsRepository implements IMetricsRepository {
     const stringyfiedToken = JSON.stringify(tokenPayload);
 
     const metricValues = [
-      // Required for versioning. This way, old logs will still be readable, because they only started with "FlowNodeInstance".
+      // Required for versioning. This way, old metrics will still be readable, because they only started with "FlowNodeInstance".
       'FlowNodeInstance_V2',
       timestamp.toISOString(),
       correlationId,
@@ -83,6 +86,24 @@ export class MetricsRepository implements IMetricsRepository {
     ];
 
     await this.writeMetricToFileSystem(processModelId, metricValues);
+  }
+
+  public async archiveProcessModelMetrics(processModelId: string): Promise<void> {
+
+    const fileNameWithExtension = `${processModelId}.met`;
+
+    const targetFilePath = this.buildPath(fileNameWithExtension);
+
+    const processModelHasNoMetrics = !FileSystemAdapter.targetExists(targetFilePath);
+    if (processModelHasNoMetrics) {
+      return;
+    }
+
+    const archiveFolderToUse = this.config.archive_path
+      ? path.resolve(path.normalize(this.config.archive_path))
+      : path.resolve(this.config.output_path, 'archive');
+
+    await FileSystemAdapter.moveMetricFileToArchive(archiveFolderToUse, targetFilePath);
   }
 
   private async writeMetricToFileSystem(processModelId: string, metricValues: Array<string>): Promise<void> {
