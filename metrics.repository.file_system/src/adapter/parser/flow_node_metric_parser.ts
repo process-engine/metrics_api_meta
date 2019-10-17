@@ -6,13 +6,17 @@ import * as ErrorSerializer from '../error_serializer';
 
 export function parseFlowNodeInstanceMetric(metricData: Array<string>): Metric {
 
-  const isV2 = metricData[0].endsWith('_V2');
+  const isV1 = metricData[0] === 'FlowNodeInstance';
+  const isV2 = metricData[0] === 'FlowNodeInstance_V2';
 
+  if (isV1) {
+    return parseAsV1(metricData);
+  }
   if (isV2) {
     return parseAsV2(metricData);
   }
 
-  return parseAsV1(metricData);
+  return undefined;
 }
 
 /**
