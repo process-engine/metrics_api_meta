@@ -67,9 +67,11 @@ export function readAndParseFile(filePath: string): Array<Metric> {
 
   const entriesRaw = fileContent.split('\n');
 
-  // Filter out empty lines and the final new line.
+  // Filter out empty lines, comments and the final new line.
   const filteredEntries = entriesRaw.filter((entry: string): boolean => {
-    return entry.length > 0;
+    const isNotEmpty = entry.length > 0;
+    const isNotAComment = !entry.startsWith('#');
+    return isNotEmpty && isNotAComment;
   });
 
   const metrics = filteredEntries.map(parseMetric);
