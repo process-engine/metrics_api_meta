@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/process-engine/metrics_api_core#readme",
   "dependencies": {
-    "@process-engine/metrics_api_contracts": "2.0.0",
+    "@process-engine/metrics_api_contracts": "feature~implement_log_archival",
     "moment": "^2.24.0"
   },
   "devDependencies": {
