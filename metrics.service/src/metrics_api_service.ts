@@ -169,4 +169,10 @@ export class MetricsApiService implements IMetricsApi {
     );
   }
 
+  public async archiveProcessModelMetrics(identity: IIdentity, processModelId: string): Promise<void> {
+    await this
+      .metricsRepository
+      .archiveProcessModelMetrics(processModelId);
+  }
+
 }
