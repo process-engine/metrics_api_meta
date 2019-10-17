@@ -2,7 +2,10 @@ import * as moment from 'moment';
 import * as path from 'path';
 
 import {
-  IMetricsRepository, Metric, MetricMeasurementPoint,
+  IMetricsRepository,
+  IMetricsRepositoryConfig,
+  Metric,
+  MetricMeasurementPoint,
 } from '@process-engine/metrics_api_contracts';
 
 import * as ErrorSerializer from './adapter/error_serializer';
@@ -10,7 +13,7 @@ import * as FileSystemAdapter from './adapter/file_system_adapter';
 
 export class MetricsRepository implements IMetricsRepository {
 
-  public config: any;
+  public config: IMetricsRepositoryConfig;
 
   public async readMetricsForProcessModel(processModelId: string): Promise<Array<Metric>> {
 
