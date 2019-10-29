@@ -22,12 +22,12 @@
   "homepage": "https://github.com/process-engine/metrics_api_contracts#readme",
   "dependencies": {
     "@essential-projects/iam_contracts": "^3.4.0",
-    "@types/node": "^10.12.2",
     "moment": "^2.24.0"
   },
   "devDependencies": {
     "@essential-projects/eslint-config": "^1.0.0",
     "@process-engine/ci_tools": "^2.2.0",
+    "@types/node": "^12.11.7",
     "eslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
